@@ -33,6 +33,7 @@ def load_employee_images():
 
 load_employee_images()
 
+# Encode les visages d'une liste d'images en utilisant face_recognition et retourne une liste des encodages.
 def findEncodings(images):
     encodeList = []
     for img in images:
@@ -45,6 +46,7 @@ def findEncodings(images):
             print("Aucun visage détecté dans l'image.")
     return encodeList
 
+# Capture une image via la webcam, l'encode en base64 et l'ajoute à la base de données avec le nom de l'employé.
 def add_new_employee(name):
     video_capture = cv2.VideoCapture(0)
     while True:
@@ -60,6 +62,7 @@ def add_new_employee(name):
     load_employee_images()
     print(f"Employé {name} ajouté avec succès dans la base de données.")
 
+# Enregistre l'heure et le nom d'une personne reconnue dans un fichier CSV de présence.
 def log_attendance(name):
     with open('attendance.csv', 'a', newline='') as file:
         writer = csv.writer(file)
@@ -68,6 +71,7 @@ def log_attendance(name):
         writer.writerow([name, dtString])
     print(f"Pointage enregistré pour {name} à {dtString}")
 
+# Lance la webcam, détecte et reconnaît les visages en comparant avec les encodages connus, et enregistre la présence des employés reconnus.
 def facial_recognition():
     encodeListKnown = findEncodings(images)
     print('Encodage terminé')
@@ -109,6 +113,7 @@ def start_facial_recognition():
     messagebox.showinfo("Info", "Démarrage de la reconnaissance faciale...")
     facial_recognition()
 
+# Récupère le nom entré par l'utilisateur et appelle add_new_employee(name), puis affiche une confirmation ou un message d'erreur.
 def add_employee():
     name = name_entry.get()
     if name:
